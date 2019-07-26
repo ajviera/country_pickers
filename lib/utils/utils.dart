@@ -3,7 +3,7 @@ import 'package:country_pickers/country.dart';
 import 'package:flutter/widgets.dart';
 
 class CountryPickerUtils {
-  static Country getCountryByIsoCode(String isoCode) {
+  static CountryPicked getCountryByIsoCode(String isoCode) {
     try {
       return countryList.firstWhere(
         (country) => country.isoCode.toLowerCase() == isoCode.toLowerCase(),
@@ -17,7 +17,7 @@ class CountryPickerUtils {
     return "assets/${isoCode.toLowerCase()}.png";
   }
 
-  static Widget getDefaultFlagImage(Country country) {
+  static Widget getDefaultFlagImage(CountryPicked country) {
     return Image.asset(
       CountryPickerUtils.getFlagImageAssetPath(country.isoCode),
       height: 20.0,
@@ -27,7 +27,7 @@ class CountryPickerUtils {
     );
   }
 
-  static Country getCountryByPhoneCode(String phoneCode) {
+  static CountryPicked getCountryByPhoneCode(String phoneCode) {
     try {
       return countryList.firstWhere(
         (country) => country.phoneCode.toLowerCase() == phoneCode.toLowerCase(),

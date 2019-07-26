@@ -11,7 +11,7 @@ import 'countries.dart';
 
 class CountryPickerDialog extends StatefulWidget {
   /// Callback that is called with selected Country
-  final ValueChanged<Country> onValuePicked;
+  final ValueChanged<CountryPicked> onValuePicked;
 
   /// The (optional) title of the dialog is displayed in a large font at the top
   /// of the dialog.
@@ -104,18 +104,18 @@ class CountryPickerDialog extends StatefulWidget {
 }
 
 class SingleChoiceDialogState extends State<CountryPickerDialog> {
-  List<Country> _allCountries;
+  List<CountryPicked> _allCountries;
 
-  List<Country> _filteredCountries;
+  List<CountryPicked> _filteredCountries;
 
   @override
   void initState() {
-    _allCountries = countryList
-        .where(widget.itemFilter ?? acceptAllCountries)
-        .toList();
+    _allCountries =
+        countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
 
     _filteredCountries = _allCountries;
 
+    _allCountries.sort();
     super.initState();
   }
 
@@ -181,7 +181,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
       onChanged: (String value) {
         setState(() {
           _filteredCountries = _allCountries
-              .where((Country country) =>
+              .where((CountryPicked country) =>
                   country.name.toLowerCase().startsWith(value.toLowerCase()) ||
                   country.phoneCode.startsWith(value) ||
                   country.isoCode.toLowerCase().startsWith(value.toLowerCase()))

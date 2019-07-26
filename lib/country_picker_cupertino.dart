@@ -19,7 +19,7 @@ const double _kDefaultDiameterRatio = 1.35;
 /// in cupertino style
 class CountryPickerCupertino extends StatefulWidget {
   /// Callback that is called with selected Country
-  final ValueChanged<Country> onValuePicked;
+  final ValueChanged<CountryPicked> onValuePicked;
 
   /// Filters the available country list
   final ItemFilter itemFilter;
@@ -67,7 +67,7 @@ class CountryPickerCupertino extends StatefulWidget {
   /// {@macro flutter.rendering.wheelList.magnification}
   final double magnification;
 
-  final Country initialCountry;
+  final CountryPicked initialCountry;
 
   /// A [FixedExtentScrollController] to read and control the current item.
   ///
@@ -96,13 +96,11 @@ class CountryPickerCupertino extends StatefulWidget {
 }
 
 class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
-  List<Country> _countries;
+  List<CountryPicked> _countries;
   FixedExtentScrollController _scrollController;
 
   @override
   void initState() {
-    super.initState();
-
     _countries =
         countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
 
@@ -115,6 +113,8 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
       _scrollController = FixedExtentScrollController(
           initialItem: _countries.indexOf(countyInList));
     }
+    _countries.sort();
+    super.initState();
   }
 
   @override
@@ -153,7 +153,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
       useMagnifier: widget.useMagnifier,
       magnification: widget.magnification,
       children: _countries
-          .map<Widget>((Country country) => widget.itemBuilder != null
+          .map<Widget>((CountryPicked country) => widget.itemBuilder != null
               ? widget.itemBuilder(country)
               : _buildDefaultItem(country))
           .toList(),
@@ -163,7 +163,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     );
   }
 
-  _buildDefaultItem(Country country) {
+  _buildDefaultItem(CountryPicked country) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(

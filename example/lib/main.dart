@@ -26,16 +26,16 @@ class DemoPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<DemoPage> {
-  Country _selectedDialogCountry =
+  CountryPicked _selectedDialogCountry =
       CountryPickerUtils.getCountryByPhoneCode('90');
 
-  Country _selectedFilteredDialogCountry =
+  CountryPicked _selectedFilteredDialogCountry =
       CountryPickerUtils.getCountryByPhoneCode('90');
 
-  Country _selectedCupertinoCountry =
+  CountryPicked _selectedCupertinoCountry =
       CountryPickerUtils.getCountryByIsoCode('tr');
 
-  Country _selectedFilteredCupertinoCountry =
+  CountryPicked _selectedFilteredCupertinoCountry =
       CountryPickerUtils.getCountryByIsoCode('DE');
 
   @override
@@ -127,7 +127,7 @@ class _HomePageState extends State<DemoPage> {
             itemFilter: filtered
                 ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
                 : null,
-            onValuePicked: (Country country) {
+            onValuePicked: (CountryPicked country) {
               print("${country.name}");
             },
           ),
@@ -142,7 +142,7 @@ class _HomePageState extends State<DemoPage> {
         ],
       );
 
-  Widget _buildDropdownItem(Country country) => Container(
+  Widget _buildDropdownItem(CountryPicked country) => Container(
         child: Row(
           children: <Widget>[
             CountryPickerUtils.getDefaultFlagImage(country),
@@ -154,7 +154,7 @@ class _HomePageState extends State<DemoPage> {
         ),
       );
 
-  Widget _buildDialogItem(Country country) => Row(
+  Widget _buildDialogItem(CountryPicked country) => Row(
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
           SizedBox(width: 8.0),
@@ -174,7 +174,7 @@ class _HomePageState extends State<DemoPage> {
                 searchInputDecoration: InputDecoration(hintText: 'Search...'),
                 isSearchable: true,
                 title: Text('Select your phone code'),
-                onValuePicked: (Country country) =>
+                onValuePicked: (CountryPicked country) =>
                     setState(() => _selectedDialogCountry = country),
                 itemBuilder: _buildDialogItem)),
       );
@@ -189,7 +189,7 @@ class _HomePageState extends State<DemoPage> {
                 searchInputDecoration: InputDecoration(hintText: 'Search...'),
                 isSearchable: true,
                 title: Text('Select your phone code'),
-                onValuePicked: (Country country) =>
+                onValuePicked: (CountryPicked country) =>
                     setState(() => _selectedFilteredDialogCountry = country),
                 itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
                 itemBuilder: _buildDialogItem)),
@@ -204,7 +204,7 @@ class _HomePageState extends State<DemoPage> {
           pickerSheetHeight: 300.0,
           pickerItemHeight: 75,
           initialCountry: _selectedCupertinoCountry,
-          onValuePicked: (Country country) =>
+          onValuePicked: (CountryPicked country) =>
               setState(() => _selectedCupertinoCountry = country),
         );
       });
@@ -216,13 +216,13 @@ class _HomePageState extends State<DemoPage> {
           backgroundColor: Colors.white,
           pickerSheetHeight: 200.0,
           initialCountry: _selectedFilteredCupertinoCountry,
-          onValuePicked: (Country country) =>
+          onValuePicked: (CountryPicked country) =>
               setState(() => _selectedFilteredCupertinoCountry = country),
           itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
         );
       });
 
-  Widget _buildCupertinoSelectedItem(Country country) {
+  Widget _buildCupertinoSelectedItem(CountryPicked country) {
     return Row(
       children: <Widget>[
         CountryPickerUtils.getDefaultFlagImage(country),
@@ -234,13 +234,12 @@ class _HomePageState extends State<DemoPage> {
     );
   }
 
-  Widget _buildCupertinoItem(Country country) {
+  Widget _buildCupertinoItem(CountryPicked country) {
     return DefaultTextStyle(
-      style:
-          const TextStyle(
-            color: CupertinoColors.white,
-            fontSize: 16.0,
-          ),
+      style: const TextStyle(
+        color: CupertinoColors.white,
+        fontSize: 16.0,
+      ),
       child: Row(
         children: <Widget>[
           SizedBox(width: 8.0),

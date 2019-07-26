@@ -27,21 +27,20 @@ class CountryPickerDropdown extends StatefulWidget {
   final String initialValue;
 
   ///This function will be called whenever a Country item is selected.
-  final ValueChanged<Country> onValuePicked;
+  final ValueChanged<CountryPicked> onValuePicked;
 
   @override
   _CountryPickerDropdownState createState() => _CountryPickerDropdownState();
 }
 
 class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
-  List<Country> _countries;
-  Country _selectedCountry;
+  List<CountryPicked> _countries;
+  CountryPicked _selectedCountry;
 
   @override
   void initState() {
-    _countries = countryList
-        .where(widget.itemFilter ?? acceptAllCountries)
-        .toList();
+    _countries =
+        countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
 
     if (widget.initialValue != null) {
       try {
@@ -56,13 +55,15 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
       _selectedCountry = _countries[0];
     }
 
+    _countries.sort();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<DropdownMenuItem<Country>> items = _countries
-        .map((country) => DropdownMenuItem<Country>(
+    List<DropdownMenuItem<CountryPicked>> items = _countries
+        .map((country) => DropdownMenuItem<CountryPicked>(
             value: country,
             child: widget.itemBuilder != null
                 ? widget.itemBuilder(country)
@@ -72,7 +73,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
     return Row(
       children: <Widget>[
         DropdownButtonHideUnderline(
-          child: DropdownButton<Country>(
+          child: DropdownButton<CountryPicked>(
             isDense: true,
             onChanged: (value) {
               setState(() {
@@ -88,7 +89,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
     );
   }
 
-  Widget _buildDefaultMenuItem(Country country) {
+  Widget _buildDefaultMenuItem(CountryPicked country) {
     return Row(
       children: <Widget>[
         CountryPickerUtils.getDefaultFlagImage(country),
