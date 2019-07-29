@@ -41,12 +41,14 @@ class _CountryPickerPopupMenuState extends State<CountryPickerPopupMenu> {
 
   @override
   void didUpdateWidget(CountryPickerPopupMenu oldWidget) {
-    if (widget.selectedFilteredDialogCountry.isoCode !=
-        oldWidget.selectedFilteredDialogCountry.isoCode) {
-      super.didUpdateWidget(widget);
-    } else {
-      super.didUpdateWidget(oldWidget);
+    if (widget.selectedFilteredDialogCountry?.isoCode !=
+        oldWidget.selectedFilteredDialogCountry?.isoCode) {
+      setState(() {
+        _selectedFilteredDialogCountry = widget.selectedFilteredDialogCountry ??
+            CountryPickerUtils.getCountryByPhoneCode('1');
+      });
     }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
