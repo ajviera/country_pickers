@@ -68,15 +68,15 @@ class _HomePageState extends State<DemoPage> {
                 ],
               ),
             ),
-            Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('CountryPickerDropdown (filtered)'),
-                  ListTile(title: _buildCountryPickerDropdown(true)),
-                ],
-              ),
-            ),
+            // Card(
+            //   child: Column(
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: <Widget>[
+            //       Text('CountryPickerDropdown (filtered)'),
+            //       ListTile(title: _buildCountryPickerDropdown(true)),
+            //     ],
+            //   ),
+            // ),
             Card(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +84,17 @@ class _HomePageState extends State<DemoPage> {
                   Text('CountryPickerDialog'),
                   ListTile(
                     onTap: _openCountryPickerDialog,
-                    title: _buildDialogItem(_selectedDialogCountry),
+                    title: Container(
+                      width: 50.0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          CountryPickerUtils.getDefaultFlagImage(
+                            _selectedDialogCountry,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -172,7 +182,8 @@ class _HomePageState extends State<DemoPage> {
   _buildCountryPickerDropdown(bool filtered) => Row(
         children: <Widget>[
           CountryPickerDropdown(
-            initialValue: 'AR',
+            selectedFilteredDialogCountry:
+                CountryPickerUtils.getCountryByIsoCode('US'),
             itemBuilder: _buildDropdownItem,
             itemFilter: filtered
                 ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
@@ -209,28 +220,39 @@ class _HomePageState extends State<DemoPage> {
       );
 
   Widget _buildDialogItem(CountryPicked country) => Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(width: 8.0),
-          Text("+${country.phoneCode}"),
-          SizedBox(width: 8.0),
-          Flexible(child: Text(country.name))
+          Flexible(
+            child: Text(
+              country.name,
+              style: TextStyle(fontSize: 14.0),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Text(
+            "+" + country.phoneCode,
+            style: TextStyle(fontSize: 14.0),
+          ),
         ],
       );
 
   void _openCountryPickerDialog() => showDialog(
         context: context,
         builder: (context) => Theme(
-            data: Theme.of(context).copyWith(primaryColor: Colors.pink),
-            child: CountryPickerDialog(
-                titlePadding: EdgeInsets.all(8.0),
-                searchCursorColor: Colors.pinkAccent,
-                searchInputDecoration: InputDecoration(hintText: 'Search...'),
-                isSearchable: true,
-                title: Text('Select your phone code'),
-                onValuePicked: (CountryPicked country) =>
-                    setState(() => _selectedDialogCountry = country),
-                itemBuilder: _buildDialogItem)),
+          data: Theme.of(context).copyWith(primaryColor: Colors.pink),
+          child: CountryPickerDialog(
+            titlePadding: EdgeInsets.all(8.0),
+            searchCursorColor: Colors.pinkAccent,
+            searchInputDecoration: InputDecoration(hintText: 'Search...'),
+            isSearchable: true,
+            title: Text('Select your phone code'),
+            onValuePicked: (CountryPicked country) =>
+                setState(() => _selectedDialogCountry = country),
+            itemBuilder: _buildDialogItem,
+          ),
+        ),
       );
 
   void _openFilteredCountryPickerDialog() => showDialog(

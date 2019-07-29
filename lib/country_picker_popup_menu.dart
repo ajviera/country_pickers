@@ -29,13 +29,12 @@ class _CountryPickerPopupMenuState extends State<CountryPickerPopupMenu> {
   void initState() {
     _countries =
         countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
-
+    _countries.sort((a, b) => a.name.compareTo(b.name));
     _filteredCountries = _countries;
 
     _selectedFilteredDialogCountry = widget.selectedFilteredDialogCountry ??
-        CountryPickerUtils.getCountryByPhoneCode('1');
+        CountryPickerUtils.getCountryByIsoCode('US');
 
-    _countries.sort((a, b) => a.name.compareTo(b.name));
     super.initState();
   }
 
@@ -45,7 +44,7 @@ class _CountryPickerPopupMenuState extends State<CountryPickerPopupMenu> {
         oldWidget.selectedFilteredDialogCountry?.isoCode) {
       setState(() {
         _selectedFilteredDialogCountry = widget.selectedFilteredDialogCountry ??
-            CountryPickerUtils.getCountryByPhoneCode('1');
+            CountryPickerUtils.getCountryByIsoCode('US');
       });
     }
     super.didUpdateWidget(oldWidget);
@@ -54,6 +53,8 @@ class _CountryPickerPopupMenuState extends State<CountryPickerPopupMenu> {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<CountryPicked>(
+      padding: EdgeInsets.symmetric(vertical: 100),
+      offset: Offset(0, 500),
       onSelected: _select,
       child: CountryPickerUtils.getDefaultFlagImage(
         _selectedFilteredDialogCountry,
@@ -65,29 +66,29 @@ class _CountryPickerPopupMenuState extends State<CountryPickerPopupMenu> {
   List<PopupMenuEntry<CountryPicked>> _groupOptions() {
     List<PopupMenuEntry<CountryPicked>> widgets = [];
 
+    widgets.add(PopupMenuDivider(height: 25));
+
     _filteredCountries.forEach((country) {
       widgets.add(
         PopupMenuItem<CountryPicked>(
           value: country,
-          child: Container(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                CountryPickerUtils.getDefaultFlagImage(country),
-                Flexible(
-                  child: Text(
-                    country.name,
-                    style: TextStyle(fontSize: 14.0),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Text(
-                  "+" + country.phoneCode,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              CountryPickerUtils.getDefaultFlagImage(country),
+              Flexible(
+                child: Text(
+                  country.name,
                   style: TextStyle(fontSize: 14.0),
+                  textAlign: TextAlign.center,
                 ),
-              ],
-            ),
+              ),
+              Text(
+                "+" + country.phoneCode,
+                style: TextStyle(fontSize: 14.0),
+              ),
+            ],
           ),
         ),
       );
@@ -97,9 +98,7 @@ class _CountryPickerPopupMenuState extends State<CountryPickerPopupMenu> {
   }
 
   void _select(CountryPicked choice) {
-    setState(() {
-      _selectedFilteredDialogCountry = choice;
-    });
+    setState(() => _selectedFilteredDialogCountry = choice);
     widget.onValuePicked(choice);
   }
 }

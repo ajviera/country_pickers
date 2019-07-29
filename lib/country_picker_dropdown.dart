@@ -9,7 +9,7 @@ class CountryPickerDropdown extends StatefulWidget {
   CountryPickerDropdown({
     this.itemFilter,
     this.itemBuilder,
-    this.initialValue,
+    this.selectedFilteredDialogCountry,
     this.onValuePicked,
   });
 
@@ -24,7 +24,7 @@ class CountryPickerDropdown extends StatefulWidget {
 
   ///It should be one of the ISO ALPHA-2 Code that is provided
   ///in countryList map of countries.dart file.
-  final String initialValue;
+  final CountryPicked selectedFilteredDialogCountry;
 
   ///This function will be called whenever a Country item is selected.
   final ValueChanged<CountryPicked> onValuePicked;
@@ -41,23 +41,24 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
   void initState() {
     _countries =
         countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
-
-    if (widget.initialValue != null) {
-      try {
-        _selectedCountry = _countries.firstWhere(
-          (country) => country.isoCode == widget.initialValue.toUpperCase(),
-        );
-      } catch (error) {
-        throw Exception(
-            "The initialValue provided is not a supported iso code!");
-      }
-    } else {
-      _selectedCountry = _countries[0];
-    }
-
     _countries.sort((a, b) => a.name.compareTo(b.name));
 
+    _selectedCountry = widget.selectedFilteredDialogCountry ??
+        CountryPickerUtils.getCountryByIsoCode('US');
+
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(CountryPickerDropdown oldWidget) {
+    if (widget.selectedFilteredDialogCountry?.isoCode !=
+        oldWidget.selectedFilteredDialogCountry?.isoCode) {
+      setState(() {
+        _selectedCountry = widget.selectedFilteredDialogCountry ??
+            CountryPickerUtils.getCountryByIsoCode('US');
+      });
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -70,33 +71,38 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
                 : _buildDefaultMenuItem(country)))
         .toList();
 
-    return Row(
-      children: <Widget>[
-        DropdownButtonHideUnderline(
-          child: DropdownButton<CountryPicked>(
-            isDense: true,
-            onChanged: (value) {
-              setState(() {
-                _selectedCountry = value;
-                widget.onValuePicked(value);
-              });
-            },
-            items: items,
-            value: _selectedCountry,
-          ),
-        ),
-      ],
+    return DropdownButtonHideUnderline(
+      child: DropdownButton<CountryPicked>(
+        isDense: true,
+        onChanged: (value) {
+          setState(() {
+            _selectedCountry = value;
+            widget.onValuePicked(value);
+          });
+        },
+        items: items,
+        value: _selectedCountry,
+      ),
     );
   }
 
   Widget _buildDefaultMenuItem(CountryPicked country) {
     return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         CountryPickerUtils.getDefaultFlagImage(country),
-        SizedBox(
-          width: 8.0,
+        Flexible(
+          child: Text(
+            country.name,
+            style: TextStyle(fontSize: 14.0),
+            textAlign: TextAlign.center,
+          ),
         ),
-        Text("(${country.isoCode}) +${country.phoneCode}"),
+        Text(
+          "+" + country.phoneCode,
+          style: TextStyle(fontSize: 14.0),
+        ),
       ],
     );
   }
