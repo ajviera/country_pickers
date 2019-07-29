@@ -55,7 +55,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
       _selectedCountry = _countries[0];
     }
 
-    _countries.sort();
+    _countries.sort((a, b) => a.name.compareTo(b.name));
 
     super.initState();
   }

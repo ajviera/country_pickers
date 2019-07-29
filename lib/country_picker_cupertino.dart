@@ -113,7 +113,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
       _scrollController = FixedExtentScrollController(
           initialItem: _countries.indexOf(countyInList));
     }
-    _countries.sort();
+    _countries.sort((a, b) => a.name.compareTo(b.name));
     super.initState();
   }
 

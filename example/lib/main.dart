@@ -38,80 +38,130 @@ class _HomePageState extends State<DemoPage> {
   CountryPicked _selectedFilteredCupertinoCountry =
       CountryPickerUtils.getCountryByIsoCode('DE');
 
+  TextEditingController _phoneController = TextEditingController();
+  CountryPicked _defaultCountry;
+  String hintLabel;
+
+  @override
+  void initState() {
+    _defaultCountry = CountryPickerUtils.getCountryByPhoneCode('1');
+    hintLabel = _defaultCountry.placeholder;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Country Pickers Demo'),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(8.0),
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.all(8.0),
+          children: <Widget>[
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('CountryPickerDropdown'),
+                  ListTile(title: _buildCountryPickerDropdown(false)),
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('CountryPickerDropdown (filtered)'),
+                  ListTile(title: _buildCountryPickerDropdown(true)),
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('CountryPickerDialog'),
+                  ListTile(
+                    onTap: _openCountryPickerDialog,
+                    title: _buildDialogItem(_selectedDialogCountry),
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('CountryPickerDialog (filtered)'),
+                  ListTile(
+                    onTap: _openFilteredCountryPickerDialog,
+                    title: _buildDialogItem(_selectedFilteredDialogCountry),
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('CountryPickerCupertino'),
+                  ListTile(
+                    title:
+                        _buildCupertinoSelectedItem(_selectedCupertinoCountry),
+                    onTap: _openCupertinoCountryPicker,
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('CountryPickerCupertino (filtered)'),
+                  ListTile(
+                    title: _buildCupertinoSelectedItem(
+                        _selectedFilteredCupertinoCountry),
+                    onTap: _openFilteredCupertinoCountryPicker,
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('CountryPickerPopupMenu'),
+                  ListTile(
+                    title: _buildCountryPopupMenu(
+                        _selectedFilteredCupertinoCountry),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCountryPopupMenu(CountryPicked country) {
+    return Container(
+      child: Row(
         children: <Widget>[
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('CountryPickerDropdown'),
-                ListTile(title: _buildCountryPickerDropdown(false)),
-              ],
-            ),
+          CountryPickerPopupMenu(
+            onValuePicked: (CountryPicked selected) {
+              print(selected.name);
+              setState(() {
+                hintLabel = selected.placeholder;
+              });
+            },
+            selectedFilteredDialogCountry: _defaultCountry,
           ),
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('CountryPickerDropdown (filtered)'),
-                ListTile(title: _buildCountryPickerDropdown(true)),
-              ],
-            ),
-          ),
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('CountryPickerDialog'),
-                ListTile(
-                  onTap: _openCountryPickerDialog,
-                  title: _buildDialogItem(_selectedDialogCountry),
-                ),
-              ],
-            ),
-          ),
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('CountryPickerDialog (filtered)'),
-                ListTile(
-                  onTap: _openFilteredCountryPickerDialog,
-                  title: _buildDialogItem(_selectedFilteredDialogCountry),
-                ),
-              ],
-            ),
-          ),
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('CountryPickerCupertino'),
-                ListTile(
-                  title: _buildCupertinoSelectedItem(_selectedCupertinoCountry),
-                  onTap: _openCupertinoCountryPicker,
-                ),
-              ],
-            ),
-          ),
-          Card(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('CountryPickerCupertino (filtered)'),
-                ListTile(
-                  title: _buildCupertinoSelectedItem(
-                      _selectedFilteredCupertinoCountry),
-                  onTap: _openFilteredCupertinoCountryPicker,
-                ),
-              ],
+          SizedBox(width: 10.0),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(labelText: hintLabel),
             ),
           ),
         ],
@@ -129,6 +179,9 @@ class _HomePageState extends State<DemoPage> {
                 : null,
             onValuePicked: (CountryPicked country) {
               print("${country.name}");
+              setState(() {
+                _phoneController.text = country.placeholder;
+              });
             },
           ),
           SizedBox(
@@ -137,6 +190,7 @@ class _HomePageState extends State<DemoPage> {
           Expanded(
             child: TextField(
               decoration: InputDecoration(labelText: "Phone"),
+              controller: _phoneController,
             ),
           )
         ],

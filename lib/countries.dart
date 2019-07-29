@@ -24,14 +24,14 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "AG",
-    phoneCode: "1-268",
+    phoneCode: "1268",
     name: "Antigua and Barbuda",
     iso3Code: "ATG",
     placeholder: "(268) 464-1234",
   ),
   CountryPicked(
     isoCode: "AI",
-    phoneCode: "1-264",
+    phoneCode: "1264",
     name: "Anguilla",
     iso3Code: "AIA",
     placeholder: "(264) 235-1234",
@@ -80,7 +80,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "AS",
-    phoneCode: "1-684",
+    phoneCode: "1684",
     name: "American Samoa",
     iso3Code: "ASM",
     placeholder: "(684) 733-1234",
@@ -129,7 +129,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "BB",
-    phoneCode: "1-246",
+    phoneCode: "1246",
     name: "Barbados",
     iso3Code: "BRB",
     placeholder: "(246) 250-1234",
@@ -192,7 +192,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "BM",
-    phoneCode: "1-441",
+    phoneCode: "1441",
     name: "Bermuda",
     iso3Code: "BMU",
     placeholder: "(441) 370-1234",
@@ -227,7 +227,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "BS",
-    phoneCode: "1-242",
+    phoneCode: "1242",
     name: "Bahamas",
     iso3Code: "BHS",
     placeholder: "(242) 359-1234",
@@ -423,14 +423,14 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "DM",
-    phoneCode: "1-767",
+    phoneCode: "1767",
     name: "Dominica",
     iso3Code: "DMA",
     placeholder: "(767) 225-1234",
   ),
   CountryPicked(
     isoCode: "DO",
-    phoneCode: "1-849",
+    phoneCode: "1849",
     name: "Dominican Republic (República Dominicana)",
     iso3Code: "DOM",
     placeholder: "(809) 234-5678",
@@ -577,7 +577,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "GD",
-    phoneCode: "1-473",
+    phoneCode: "1473",
     name: "Grenada",
     iso3Code: "GRD",
     placeholder: "(473) 403-1234",
@@ -675,7 +675,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "GU",
-    phoneCode: "1-671",
+    phoneCode: "1671",
     name: "Guam",
     iso3Code: "GUM",
     placeholder: "(671) 300-1234",
@@ -815,7 +815,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "JM",
-    phoneCode: "1-876",
+    phoneCode: "1876",
     name: "Jamaica",
     iso3Code: "JAM",
     placeholder: "(876) 210-1234",
@@ -871,7 +871,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "KN",
-    phoneCode: "1-869",
+    phoneCode: "1869",
     name: "Saint Kitts and Nevis",
     iso3Code: "KNA",
     placeholder: "(869) 765-2917",
@@ -899,7 +899,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "KY",
-    phoneCode: "1-345",
+    phoneCode: "1345",
     name: "Cayman Islands",
     iso3Code: "CYM",
     placeholder: "(345) 323-1234",
@@ -927,7 +927,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "LC",
-    phoneCode: "1-758",
+    phoneCode: "1758",
     name: "Saint Lucia",
     iso3Code: "LCA",
     placeholder: "(758) 284-5678",
@@ -1074,7 +1074,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "MP",
-    phoneCode: "1-670",
+    phoneCode: "1670",
     name: "Northern Mariana Islands",
     iso3Code: "MNP",
     placeholder: "(670) 234-5678",
@@ -1095,7 +1095,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "MS",
-    phoneCode: "1-664",
+    phoneCode: "1664",
     name: "Montserrat",
     iso3Code: "MSR",
     placeholder: "(664) 491-3456",
@@ -1508,7 +1508,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "SX",
-    phoneCode: "1-721",
+    phoneCode: "1721",
     name: "Sint Maarten",
     iso3Code: "SXM",
     placeholder: "(721) 520-5678",
@@ -1529,7 +1529,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "TC",
-    phoneCode: "1-649",
+    phoneCode: "1649",
     name: "Turks and Caicos Islands",
     iso3Code: "TCA",
     placeholder: "(649) 231-1234",
@@ -1613,7 +1613,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "TT",
-    phoneCode: "1-868",
+    phoneCode: "1868",
     name: "Trinidad and Tobago",
     iso3Code: "TTO",
     placeholder: "(868) 291-1234",
@@ -1690,7 +1690,7 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "VC",
-    phoneCode: "1-784",
+    phoneCode: "1784",
     name: "Saint Vincent and the Grenadines",
     iso3Code: "VCT",
     placeholder: "(784) 430-1234",
@@ -1704,14 +1704,14 @@ final List<CountryPicked> countryList = [
   ),
   CountryPicked(
     isoCode: "VG",
-    phoneCode: "1-284",
+    phoneCode: "1284",
     name: "Virgin Islands, British",
     iso3Code: "VGB",
     placeholder: "(284) 300-1234",
   ),
   CountryPicked(
     isoCode: "VI",
-    phoneCode: "1-340",
+    phoneCode: "1340",
     name: "U.S. Virgin Islands",
     iso3Code: "VIR",
     placeholder: "(340) 642-1234",
