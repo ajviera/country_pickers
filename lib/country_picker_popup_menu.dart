@@ -13,7 +13,7 @@ class CountryPickerPopupMenu extends StatefulWidget {
 
   /// Filters the available country list
   final ItemFilter itemFilter;
-  final selectedFilteredDialogCountry;
+  final CountryPicked selectedFilteredDialogCountry;
   final Function onValuePicked;
   @override
   _CountryPickerPopupMenuState createState() => _CountryPickerPopupMenuState();
@@ -37,6 +37,16 @@ class _CountryPickerPopupMenuState extends State<CountryPickerPopupMenu> {
 
     _countries.sort((a, b) => a.name.compareTo(b.name));
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(CountryPickerPopupMenu oldWidget) {
+    if (widget.selectedFilteredDialogCountry.isoCode !=
+        oldWidget.selectedFilteredDialogCountry.isoCode) {
+      super.didUpdateWidget(widget);
+    } else {
+      super.didUpdateWidget(oldWidget);
+    }
   }
 
   @override
